@@ -108,8 +108,14 @@ new (this.init())();
       }
     };
     (p.test())();
+    // var s = p.test();
+    // s();
   </script>
 ```
+
+上面的例子中，`this.a` 的值和P变量是完全没有关系的。`(p.test())();`这段代码和下面注释掉的两段代码是一样，这样就能很明白的看出来，`s();` 函数时挂载在window对象的，所以函数中的this就是指向window对象的。
+
+第二点就是要注意`this.a = 60;` 和 `this.a = 20;` 中的this都是指向window的，所以前者的 `a` 的值要覆盖后者。
 
 ``` js
 <script type="text/javascript">
@@ -128,3 +134,5 @@ new (this.init())();
   p.test();
 </script>
   ```
+
+这段代码和前面的代码得出的结果是一样，另一方面也证明了，在浏览器中，凡是没有指明调用对象的，都会默认绑定window对象。
