@@ -34,29 +34,28 @@ this有四种绑定规则
 函数的调用必须绑定对象，默认绑定就是绑定到window对象。
 
 ``` js
-function fire() {
+function default() {
   console.log(this === window)
 }
-fire(); // 输出true
+default(); // 输出true
 
-function fire() {
-  // 我是被定义在函数内部的函数哦！
-  function innerFire() {
+function default() {
+  function inner() {
     console.log(this === window)
   }
-  innerFire(); // 独立函数调用
+  inner(); // 独立函数调用
 }
-fire(); // 输出true
+default(); // 输出true
 
 var obj = {
-  fire: function () {
-    function innerFire() {
+  outer: function () {
+    function inner() {
       console.log(this === window)
     }
-    innerFire();   // 独立函数调用
+    inner();   // 独立函数调用
   }
 }
-obj.fire(); //输出 true
+obj.outer(); //输出 true
 ```
 
 【总结】 凡事函数作为独立函数调用，无论它的位置在哪里，它的行为表现，都和直接在全局环境中调用无异
@@ -66,45 +65,29 @@ obj.fire(); //输出 true
 当函数被一个对象“包含”的时候，我们称函数的this被隐式绑定到这个对象里面了，这时候，通过this可以直接访问所绑定的对象里面的其他属性，
 
 ``` js
-var obj = {
-  a: 1,
-  fire: function () {
-    console.log(this.a)
+<script type="text/javascript">
+  function outer() {
+    console.info('outer', this.a); // => outer 1
   }
-}
-obj.fire(); // 输出1
 
-// 我是第一段代码
-function fire() {
-  console.log(this.a)
-}
-
-var obj = {
-  a: 1,
-  fire: fire
-}
-obj.fire(); // 输出1
-
-// 我是第二段代码
-var obj = {
-  a: 1,
-  fire: function () {
-    console.log(this.a)
+  var obj = {
+    a: 1,
+    outer: outer,
+    inner: function () {
+      console.info('inner', this.a) // => inner 1
+    }
   }
-}
-obj.fire(); // 输出1
+</script>
 ```
 
-fire函数并不会因为它被定义在obj对象的内部和外部而有任何区别，也就是说在上述隐式绑定的两种形式下，fire通过this还是可以访问到obj内的a属性，这告诉我们：
+outer函数和inner函数被定义在obj对象的内部和外部而有任何区别，也就是说在上述隐式绑定的两种形式下，outer通过this还是可以访问到obj内的a属性，这告诉我们：
 
 1. this是动态绑定的，或者说是在代码运行期绑定而不是在书写期
-2. 函数于对象的独立性， this的传递丢失问题
+2. 函数于对象的独立性， this的传递就存在丢失问题
 
-（下面的描述可能带有个人的情感倾向而显得不太严谨，但这是因为我希望阅读者尽可能地理解我想表达的意思）
- 隐式绑定下，作为对象属性的函数，对于对象来说是独立的。基于this动态绑定的特点，写在对象内部，作为对象属性的函数，对于这个对象来说是独立的。（函数并不被这个外部对象所“完全拥有”）
+ > 隐式绑定下，作为对象属性的函数，对于对象来说是独立的。基于this动态绑定的特点，写在对象内部，作为对象属性的函数，对于这个对象来说是独立的。（函数并不被这个外部对象所“完全拥有”）
 
-我想表达的意思是：在上文中，函数虽然被定义在对象的内部中，但它和“在对象外部声明函数，然后在对象内部通过属性名称的方式取得函数的引用”，这两种方式在性质上是等价的（而不仅仅是效果上）
-定义在对象内部的函数只是“恰好可以被这个对象调用”而已，而不是“生来就是为这个对象所调用的”
+在上文中，函数虽然被定义在对象的内部中，但它和“在对象外部声明函数，然后在对象内部通过属性名称的方式取得函数的引用”，这两种方式在性质上是等价的（而不仅仅是效果上）
 
 在一串对象属性链中，this绑定的是最内层的对象
 
@@ -119,11 +102,11 @@ function thisTo() {
 }
 var data = {
   a: 2,
-  foo: thisTo //通过属性引用this所在函数 
+  foo: thisTo //通过属性引用this所在函数
 };
 var a = 3;//全局属性
 
-var newData = data.foo; //这里进行了一次引用赋值 
+var newData = data.foo; //这里进行了一次引用赋值
 newData(); // 3
 ```
 
@@ -336,7 +319,7 @@ fruit.apply(apple, [banana, apple]) // 苹果 {'0': {name: '香蕉'}, '1': { nam
 
 执行new操作的时候，将创建一个新的对象，并且将构造函数的this指向所创建的新对象
 
-```` js
+``` js
 function foo(a) {
   this.a = a;
 }
@@ -352,12 +335,13 @@ console.log(a3.a); // 输出3
 console.log(a4.a); // 输出4
 ```
 
-优先级
-new绑定
-显示绑定
-隐式绑定
-默认绑定(严格模式下会绑定到undefined)
-箭头函数
+## 四、优先级
+
+new绑定  
+显示绑定  
+隐式绑定  
+默认绑定(严格模式下会绑定到undefined)  
+箭头函数  
 箭头函数并非使用function关键字进行定义，也不会使用上面所讲解的this四种标准规范，箭头函数会继承自外层函数调用的this绑定。
 
 执行 fruit.call(apple)时，箭头函数this已被绑定，无法再次被修改。

@@ -10,11 +10,20 @@
 
 <body>
   <script type="text/javascript">
-    var x = { a: 1 };
-    { a: 1 }
-    { a: 1, b: 2 }
-    console.info(x, "x");
-    console.info(a, "a")
+    function thisTo() {
+      console.log(this.a);
+    }
+    var data = {
+      a: 2,
+      foo: thisTo
+    };
+    var newData = {
+      a: 3
+    }
+    var a = 4;
+    data.foo(); //2
+    (newData.foo = data.foo)() //4
+    newData.foo();  //3
   </script>
 </body>
 
