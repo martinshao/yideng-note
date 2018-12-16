@@ -21,5 +21,5 @@
 [1]: https://github.com/Martin-Shao/yideng-note/blob/master/html-senior/exercises.md
 [2]: https://github.com/Martin-Shao/yideng-note
 [3]: https://github.com/Martin-Shao/yideng-note/blob/master/es5-senior/exercises.md
-[4]: https://github.com/Martin-Shao/yideng-note
+[4]: https://github.com/Martin-Shao/yideng-note/blob/master/es6-senior/exercises.md
 [5]: https://github.com/Martin-Shao/yideng-note
