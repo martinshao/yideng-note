@@ -92,6 +92,9 @@ new (this.init())();
  ```
 
  这个例子主要就是分析this的指向，关于这个我有详细的文章介绍。请参考。
+ [this问题详解][1]
+
+ [1]: https://github.com/Martin-Shao/yideng-note/blob/master/es5-senior/article/this.md
 
  ``` js
   <script type="text/javascript">
