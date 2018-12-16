@@ -1,4 +1,4 @@
-# 关于this
+# JavaScript探究this奥秘之旅
 
 ## 一、this的理解
 

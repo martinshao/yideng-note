@@ -1,4 +1,6 @@
-## 主要通过例题的方式讲解一些ES5的核心知识
+## ES5核心技术
+
+> **主要通过例题的方式讲解一些ES5的核心知识**
 
 ### 1.第一题 以下代码运算结果
 
@@ -299,3 +301,15 @@ new (this.init())();
 5. 改变this的方法 call apply bind
 6. 函数提升，变量提升 函数提升的级别要比变量提升高
 7. jquery内部有很多经典的写法 模块化编程的概念 闭包
+
+## ES5核心知识提炼
+
+JavaScript基础之变量类型
+JavaScript探究this奥秘之旅
+面向对象编程范式简介
+JavaScript面向对象编程基础
+JavaScript之理解“一等公民”--函数
+Function原型方法call、apply、bind全方位解析
+JavaScript深度理解原型链
+JavaScript全方位理解闭包
+JavaScript继承深度解析
