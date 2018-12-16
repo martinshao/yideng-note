@@ -14,7 +14,7 @@
 
 ## 常见的基本数据类型
 
-<font color=#0099ff size=3 face="黑体">Number、String 、Boolean、Null和Undefined。</font>
+<font color="#0099ff" size=3 face="黑体">Number、String 、Boolean、Null和Undefined。</font>
 基本数据类型是按值访问的，因为可以直接操作保存在变量中的实际值。示例：
 
 ``` js
