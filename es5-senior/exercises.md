@@ -136,3 +136,163 @@ new (this.init())();
   ```
 
 这段代码和前面的代码得出的结果是一样，另一方面也证明了，在浏览器中，凡是没有指明调用对象的，都会默认绑定window对象。
+
+### 3.第二题 以下代码运算结果
+
+``` js
+<script type="text/javascript">
+  function f1() {
+    var N = 0;
+    function f2() {
+      N += 1;
+      console.info(N);
+    }
+    return f2;
+  }
+  var result = f1();
+  result();
+  result();
+  result();
+  // result = null;
+</script>
+```
+
+这个例题就是典型的闭包，造成的问题就是N这个变量永驻内存，其实就会造成内存泄露问题。得出的结果是
+> 1 2 3
+
+解决这个问题的办法是在逻辑结束之后，给变量赋值 `null` ，这是闭包带来不好的问题，另外一方面，闭包还能给JavaScript这么语言带来私有变量。
+
+``` js
+<script type="text/javascript">
+  function Product() {
+    var name;
+    this.setName = function(value) {
+      name = value;
+    }
+    this.getName = function() {
+      return name;
+    }
+  }
+  var product = new Product();
+  product.setName("milk");
+  console.info(product);
+  console.info(product.getName());
+</script>
+```
+
+### 4. 面向对象与继承
+
+第四部分开始，就要涉及到JavaScript面向对象编程的问题了。
+
+下面代码简单演示了什么是对象、构造器和以及最简单的原型继承实例对象。
+
+1. 面向对象编程范式的概念介绍
+2. JavaScript语言支持面向对象的基石
+3. JavaScript之原型、构造函数、继承解析
+4. JavaScript按值传递和按引用传递在继承中问题
+5. 原型继承、构造继承、组合继承、寄生组合继承优缺点解析
+6. 
+
+``` js
+<script type="text/javascript">
+  var Car = function() {
+    // constructor == Car
+    this.color = color;
+    this.sail = function(argument) {
+      console.info(this.color + " 色的车卖了13W.")
+    }
+  }
+  
+  var BMW = function() {}
+  BMW.prototype = new Car();
+
+  var car = new Car();
+  console.info(s);
+  console.info(car.sail());
+</script>
+```
+
+从这里开始，算是接触到JavaScript面相对象编程的知识了。
+关于这部分知识，会单独做一个专题，请移步。
+
+### 5. 变量提升和函数提升
+
+``` js
+  (function() {
+      var a = 20;
+      function a() {}
+      console.info(a); // console => 20
+  })();
+```
+
+``` js
+  (function() {
+      var a = 20;
+      var b = c = a;
+  })();
+  console.info(c); // console => 20
+```
+
+``` js
+  (function() {
+    function a() {
+      var a = 20;
+      var b = c = a;
+    }
+  })();
+  console.info(c); // Uncaught ReferenceError: c is not defined
+  ```
+
+``` js
+  (function() {
+      var a = 20;
+      var b, c = a;
+  })();
+  console.info(c); // Uncaught ReferenceError: c is not defined
+  ```
+
+  ``` js
+  function test() {
+    this.a = 20;
+  }
+  test.prototype.a = 30;
+  var q = new test();
+  console.info(q.a);
+```
+
+``` js
+  var user = {
+    age: 20,
+    init: function() {
+      console.info(this.age);
+    }
+  }
+  var data = {age: 40};
+  var u = user.init.bind(data);
+  u.init();
+```
+
+``` js
+  function test(m) {
+    m.v = 20;
+  }
+  var m = {age: 30};
+  test(m);
+  console.info(m);
+  console.info(m.v); // console => 20
+```
+
+## 大总结
+
+1. 理解执行函数
+2. 闭包，内部函数可以访问外部函数的变量，把函数返回出去
+闭包可以保护内部的变量，闭包造成内存泄露 == null
+3. 原型链
+  3.1. 构造函数里的属性的优先级比原型链的要高
+  3.2. 面向对象编程的时候，js没有类的概念，可以用函数替代
+  3.3. constructor实际就是对应的那个函数
+  3.4. prototype按引用传递的，Object.create原型链的副本
+4. 数值 字符串 布尔类型按值传递
+5. 改变this的方法 call apply bind
+6. 函数提升，变量提升 函数提升的级别要比变量提升高
+7. jquery内部有很多经典的写法 模块化编程的概念 闭包
