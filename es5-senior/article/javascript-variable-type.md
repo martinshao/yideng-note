@@ -116,3 +116,4 @@ alert(typeof null == typeof undefined); //output "false"
 
 使用typeof方法在前面已经讲过，null与undefined的类型是不一样的，所以输出"false"。而===代表绝对等于，在这里null === undefined输出false。
 
+## 变量

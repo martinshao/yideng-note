@@ -24,6 +24,20 @@
     data.foo(); //2
     (newData.foo = data.foo)() //4
     newData.foo();  //3
+
+    function Person(name) {
+      this.name = name;
+    }
+
+    // Person.prototype.type = "human";
+    // Person.prototype.action = function() {
+    //   console.info("I can Walking");
+    // }
+
+    var person = new Person("shaogucheng");
+    console.info(Person.prototype.__proto__);
+    console.info(person);
+    console.info(person.__proto__);
   </script>
 </body>
 
