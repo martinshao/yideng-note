@@ -12,6 +12,8 @@
 > 到目前为止，我们看到的大多数引用类型值都是Object类型的实例。  
 ><p align="right"> -------《JavaScript高级程序设计》</p>
 
+备注：**严谨的来说，JavaScript只有七种数据类型：Number、String 、Boolean、Null、Undefined、Symbol、Object**
+
 ## 常见的基本数据类型
 
 **Number、String 、Boolean、Null和Undefined。**

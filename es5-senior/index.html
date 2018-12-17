@@ -25,19 +25,28 @@
     (newData.foo = data.foo)() //4
     newData.foo();  //3
 
-    function Person(name) {
+    function Person(name, age) {
       this.name = name;
+      this.age = age;
+
+      this.selfIntroduction = function () {
+        console.log(this.name + " is " + this.age + " years old.", 'color:red;');
+      };
     }
+
+    var person = new Person("shaogucheng", 18);
 
     // Person.prototype.type = "human";
     // Person.prototype.action = function() {
     //   console.info("I can Walking");
     // }
 
-    var person = new Person("shaogucheng");
-    console.info(Person.prototype.__proto__);
+    var person = new Person("shaogucheng", 18);
+    console.info(Person.prototype);
+    console.info(Person.prototype === person.__proto__);
     console.info(person);
     console.info(person.__proto__);
+    console.info(Person.prototype.__proto__);
   </script>
 </body>
 
