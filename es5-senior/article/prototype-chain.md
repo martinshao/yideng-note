@@ -104,3 +104,141 @@ function Person(name, age) {
 
 最后的最后我们祭出经典原型链图。
 ![alt text](./img/stage6.jpg "Title")
+
+function与object是数据类型,Function与Object是两个函数对象的标识符(等价于两个函数对象),Function与Object的数据类型都是function.
+
+首先我们看下面的例子(typeof 表示数据类型,instanceof表示实例类型---用原型链查找):
+
+``` js
+var a = function(){};
+var b = {};
+var c = 1;
+var d;
+var e = null;
+var f = false;
+var g = "";
+
+console.log( typeof a);//function
+console.log( a instanceof Function);//true
+console.log( a instanceof Object);//true
+
+console.log( typeof b);//object
+console.log( b instanceof Function);//true
+console.log( b instanceof Object);//true
+
+console.log( typeof c);//number
+console.log( c instanceof Function);//false
+console.log( c instanceof Object);//false
+
+console.log( typeof d);//undefined
+console.log( d instanceof Function);//false
+console.log( d instanceof Object);//false
+
+console.log( typeof e);//object
+console.log( e instanceof Function);//false
+console.log( e instanceof Object);//false
+
+console.log( typeof f);//boolean
+console.log( f instanceof Function);//false
+console.log( f instanceof Object);//false
+
+console.log( typeof g);//string
+console.log( g instanceof Function);//false
+console.log( g instanceof Object);//false
+```
+
+javastcript中六种数据类型number,string,boolean,undefined,object,function.注意null是不属于数据类型,null只表示数据值,null的数据类型是object,由此number,string,boolean,undefined为值类型,object,function为引用类型.然后object和Object,function和Function表示的意义是不同的,小写的是数据类型,大写的是函数标识对象.数据类型为object的数据对象(除了null)外其实例类型是Object,而数据类型为function的实例类型既是Function,也是Object,原因在于Function.prototype.__proto__ == Object.prototype,所以所有的object和funtion数据类型的数据对象的实例类型都是Object.因为实例类型是按原型链查找的.
+看下面的例子:
+
+``` js
+console.log(typeof Object);//function
+console.log(typeof Function);//function
+
+console.log( Object instanceof Function);//true
+console.log( Function instanceof Object);//true
+console.log( Object.__proto__ == Function.prototype);//true
+console.log( Function.__proto__ == Function.prototype);//true
+console.log( Function.prototype.__proto__ == Object.prototype);//true
+
+关键在这一步: Function.prototype.__proto__ == Object.prototype
+```
+
+数据类型为object的数据对象,内置__proto__对象
+而数据类型为function的数据对象(函数),内置__proto_外,还有scope,prototype,length等对象
+关键在于object类型的只有声明创建时,而function类型的除了声明创建时,还有函数运行时
+var Fn = function(){};//这是函数声明时
+Fn();//这是函数运行时.
+
+首先第一个概念：**function与object是数据类型,Function与Object是两个函数对象的标识符(等价于两个函数对象)，Function与Object的数据类型都是function。**  
+其次第二个概念：**JavaScript中所有的对象都继承自Object原型，而Function又充当了对象(Object)的构造器。**  
+然后第三个概念：**一切都是对象**  
+这张图可能很好的看到Function和Object的内在联系。  
+![alt text](./img/object-function.bmp "Title")
+
+首先需要理解的是：**一切都是对象** 这句话的含义：
+
+``` js
+console.log(Object instanceof Object); // true
+console.log(Function instanceof Object);// true  
+console.log(Object instanceof Function);// true
+console.log(Function instanceof Function);// true
+```
+
+由此可见，Object继承自己，Funtion继承自己，Object和Function互相是继承对方，也就是说Object和Function都既是函数也是对象。这一点很特别。所有的函数都是对象，可是并不是所有的对象都是函数。证明如下：
+
+``` js
+function foo(){};
+console.log(foo instanceof Function); // true
+console.log(foo instanceof Object); // true
+console.log(new foo() instanceof Function); // false
+```
+
+我们看到由new + function的构造器实例化出来的对象不是函数，仅仅是Object的子类。接下来，我们会想所有的对象都有一个Function的构造器存储在原型链的constructor属性中，那么Object的构造器是什麽呢？ 证明：
+
+``` js
+console.log(Object.constructor); // function Function(){ [native code] }
+console.log(Function.constructor); // function Function(){ [native code] }
+```
+
+由此我们可以确定Object是由Function这个函数为原型的，而Function是由它自己为原型的。Function函数是由native code构成的，我们不用去深究了。存在function Function(){...}的定义，我们明白了Function其实就是函数指针，也看作函数变量。就相当于function foo(){}中的foo。连Object的构造器都是指向Function的，可以想象Function是一个顶级的函数定义，大大的区别于自定义的如function foo(){}这样的函数定义。
+
+看这样一个语句，new Function();以Function为原型来实例化一个对象，按照刚才Object.constructor 为 functon Function(){}来说，new Function()产生的对象应该是一个Object啊，我们来验证一下：
+
+``` js
+console.log(new Function() instanceof Object); // true
+console.log(Object instanceof new Function());// false
+console.log(typeof new Function());// function
+console.log(typeof Object);// function
+```
+
+其实new Function();将产生一个匿名函数，由于Function是顶级函数所以可以产生自定义函数，我们可以把所有的函数看作Function的子类。但所有的一切包括函数都是Object的子类这点是不变的，也得到了体现。typeof Object的结果说明Object也是一个函数。继续做实验：
+
+``` js
+alert(new Object().constructor); // function Object(){ [native code] }
+```
+
+一个情理之中的疑惑。可以这么说凡是可以放在new后面的都是一个函数构造器，那么Object确实也像其它函数一样，是一个函数的指针或者是函数变量，但Function是顶级的所以Object要由Function来构造。可以这么理解，Function和Object一个是上帝，一个是撒旦同时诞生于宇宙的最开始，拥相当的力量。但是上帝更为光明，所以高高在上。Object要由Function来构造，Function属于顶级函数。但是撒旦并没有绝对的输给上帝，否则上帝就会消灭撒旦。于是或所有的对象都要继承Object包括Function(Object和Function既是对象又是函数)。就相当于所有的人包括上帝都有邪念一样。
+
+拓展一下，由Object我们会想到Array,Number,String等这些内置对象。有理由相信这些都是Object的子类。如下：
+
+``` js
+console.log(Array instanceof Object) // true
+console.log(String instanceof Object) // true
+console.log(Number instanceof Object) // true
+console.log(Object instanceof Array) // false
+console.log(Object instanceof String) // false
+console.log(Object instanceof Number) // false
+```
+
+当然他们也都会有Object的特性就像魔鬼和撒旦的关系一样，也是Function的子类，由Function构造。那么有Array,String,Number构造的对像如：new Array();new Number();new String()的构造器是function Array(){...};function String(){...};function Number(){...};
+
+``` js
+alert(Array instanceof Function) // true
+alert(String instanceof Function) // true
+alert(Number instanceof Function) // true
+alert(Array.constructor) // function Function(){ [native code] }
+alert(String.constructor) // function Function(){ [native code] }
+alert(Number.constructor) // function Function(){ [native code] }
+```
+
+总结一下，像内置的函数或说对象把如:Object,String,Array等等和自定义的function关键字定义的函数,都是Function的子类。new Function()相当于function关键字定义。这里可以引出，Function.prototype原型链上的属性所有函数共享,Object.prototype原型链上的属性所有对象共享。

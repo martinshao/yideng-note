@@ -42,11 +42,28 @@
     // }
 
     var person = new Person("shaogucheng", 18);
+    console.info(Object);
+    console.info(Object.__proto__ === Function.prototype);
+    console.info(Function);
+    console.info(Person.__proto__ === Function.prototype);
     console.info(Person.prototype);
+    console.info(Person.__proto__);
     console.info(Person.prototype === person.__proto__);
     console.info(person);
     console.info(person.__proto__);
     console.info(Person.prototype.__proto__);
+
+    console.log(Array instanceof Object) // true
+    console.log(String instanceof Object) // true
+    console.log(Number instanceof Object) // true
+    console.log(Function instanceof Object) // true
+    console.log(Object instanceof Array) // false
+    console.log(Object instanceof String) // false
+    console.log(Object instanceof Number) // false
+    console.log(Object instanceof Function) // true
+    console.log('------------------------------------');
+    console.log(Date instanceof Object) // true
+    console.log(RegExp instanceof Object) // true
   </script>
 </body>
 
