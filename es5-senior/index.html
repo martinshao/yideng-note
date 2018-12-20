@@ -10,60 +10,25 @@
 
 <body>
   <script type="text/javascript">
-    function thisTo() {
-      console.log(this.a);
-    }
-    var data = {
-      a: 2,
-      foo: thisTo
-    };
-    var newData = {
-      a: 3
-    }
-    var a = 4;
-    data.foo(); //2
-    (newData.foo = data.foo)() //4
-    newData.foo();  //3
 
-    function Person(name, age) {
-      this.name = name;
-      this.age = age;
-
-      this.selfIntroduction = function () {
-        console.log(this.name + " is " + this.age + " years old.", 'color:red;');
-      };
+    function fun(n, o) {
+      console.log(o);
+      return {
+        fun: function (m) {
+          return fun(m, n)
+        }
+      }
     }
 
-    var person = new Person("shaogucheng", 18);
-
-    // Person.prototype.type = "human";
-    // Person.prototype.action = function() {
-    //   console.info("I can Walking");
-    // }
-
-    var person = new Person("shaogucheng", 18);
-    console.info(Object);
-    console.info(Object.__proto__ === Function.prototype);
-    console.info(Function);
-    console.info(Person.__proto__ === Function.prototype);
-    console.info(Person.prototype);
-    console.info(Person.__proto__);
-    console.info(Person.prototype === person.__proto__);
-    console.info(person);
-    console.info(person.__proto__);
-    console.info(Person.prototype.__proto__);
-
-    console.log(Array instanceof Object) // true
-    console.log(String instanceof Object) // true
-    console.log(Number instanceof Object) // true
-    console.log(Function instanceof Object) // true
-    console.log(Object instanceof Array) // false
-    console.log(Object instanceof String) // false
-    console.log(Object instanceof Number) // false
-    console.log(Object instanceof Function) // true
-    console.log('------------------------------------');
-    console.log(Date instanceof Object) // true
-    console.log(RegExp instanceof Object) // true
+    var a = fun(0); // n = 0
+    console.info(a);
+    a.fun(1); // m = 1
+    a.fun(2); // m = 2
+    var b = fun(0).fun(1).fun(2).fun(3);
+    var c = fun(0).fun(1); // m=1, n=0
+    c.fun(2); // m=2, n=1
+    c.fun(3); // m=3, n=1
+    c.fun(3).fun(4); // m=3, n=1
   </script>
 </body>
 

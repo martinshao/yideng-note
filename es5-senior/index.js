@@ -3,11 +3,11 @@ function fn() {
   this.j = 0;
   this.x = 0;
 
-  var interval1 = setInterval(function() {
+  var interval1 = setInterval(function () {
     console.info('Function...', this.i++);
   }, 500);
 
-  var interval2 = setInterval(function() {
+  var interval2 = setInterval(function () {
     console.info('bind***', this.x++);
   }.bind(this), 500);
 
@@ -15,7 +15,7 @@ function fn() {
     console.info('Arrow function$$$', this.j++);
   }, 500);
 
-  setTimeout(function() {
+  setTimeout(function () {
     clearInterval(interval1);
     clearInterval(interval2);
     clearInterval(interval3);
@@ -25,10 +25,11 @@ fn();
 
 var obj = {
   user: "shaowei is cool",
-  getName: function() {
+  getName: function () {
     return this.user;
   }
 }
 
 var getNameFn = obj.getName;
 console.info(getNameFn());
+

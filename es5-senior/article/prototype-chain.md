@@ -103,7 +103,7 @@ function Person(name, age) {
 上图就已经很明显的给出了原型链的雏形。
 
 最后的最后我们祭出经典原型链图。
-![alt text](./img/stage6.jpg "Title")
+![alt text](./img/stage8.jpg "Title")
 
 function与object是数据类型,Function与Object是两个函数对象的标识符(等价于两个函数对象),Function与Object的数据类型都是function.
 
@@ -175,6 +175,11 @@ Fn();//这是函数运行时.
 这张图可能很好的看到Function和Object的内在联系。  
 ![alt text](./img/object-function.bmp "Title")
 
+* `Object` 是所有对象的爸爸，所有对象都可以通过 `__proto__` 找到它
+* `Function` 是所有函数的爸爸，所有函数都可以通过 `__proto__` 找到它
+* 函数的 `prototype` 是一个对象
+* 对象的 `__proto__` 属性指向原型， `__proto__` 将对象和原型连接起来组成了原型链
+
 首先需要理解的是：**一切都是对象** 这句话的含义：
 
 ``` js
@@ -242,3 +247,28 @@ alert(Number.constructor) // function Function(){ [native code] }
 ```
 
 总结一下，像内置的函数或说对象把如:Object,String,Array等等和自定义的function关键字定义的函数,都是Function的子类。new Function()相当于function关键字定义。这里可以引出，Function.prototype原型链上的属性所有函数共享,Object.prototype原型链上的属性所有对象共享。
+
+![alt text](./img/20181218212309.png "Title")
+![alt text](./img/20181218212401.png "Title")
+
+stated here https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function the constructor property of an instance of a function object "specifies the function that creates an object's prototype". This is confusing, so Object.constructor is "the function that creates an object's prototype"? What object is "an object" exactly?
+
+I'm trying to understand why is Object.constructor's constructor property itself?
+
+as such: Object.constructor===Object.constructor.constructor // why?
+
+Edit: i find T.J. Crowder's answer good but the phrasing of his words is pretty vague (making it hard to understand at first read, at least for me). Here's the rephrased answer:
+
+1) Object is an instance of Function
+
+2) Object does not have a property called constructor so when we call Object.constructor, it actually gives us Object.[[prototype]].constructor (aka Object.__proto__.constructor).
+
+3) Object.constructor (aka Object.__proto__.constructor) is an instance of Function.
+
+4) Since both Object and Object.constructor (aka Object.__proto__.constructor) are instances of Function therefore they both have a __proto__ property which refer to the same object. In other words Object.__proto__ === Object.constructor.__proto__ (aka Object.__proto__.constructor._proto_)
+
+5) The line Object.constructor===Object.constructor.constructor is actually equal to the line Object.__proto__.constructor===Object.constructor.__proto__.constructor
+
+6) combining steps 4 and 5 give us Object.constructor===Object.constructor.constructor
+
+7) goto step 4)
