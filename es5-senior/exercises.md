@@ -196,7 +196,6 @@ new (this.init())();
 3. JavaScript之原型、构造函数、继承解析
 4. JavaScript按值传递和按引用传递在继承中问题
 5. 原型继承、构造继承、组合继承、寄生组合继承优缺点解析
-6. 
 
 ``` js
 <script type="text/javascript">
@@ -287,6 +286,24 @@ new (this.init())();
   console.info(m.v); // console => 20
 ```
 
+```js
+var bo = 10;
+function foo() {
+  console.log(bo);
+}
+foo();
+
+(function() {
+  var bo = 20;
+  foo();
+})()
+
+(function (func) {
+  var bo = 30;
+  func();
+})(foo)
+```
+
 ## 大总结
 
 1. 理解执行函数
@@ -313,3 +330,31 @@ Function原型方法call、apply、bind全方位解析
 JavaScript深度理解原型链
 JavaScript全方位理解闭包
 JavaScript继承深度解析
+
+问题是这样的：有这样的一个代码：
+
+``` js
+var s = {
+  p: function () {
+    return function () {
+      console.log('enna')
+    }
+  }
+}
+  (s.p())()
+```
+
+志佳老师运行的结果是这样的：
+
+![alt text](./article/img/微信图片_20181221105234.jpg "Title")
+但是我的结果是这样的：  
+![alt text](./article/img/微信图片_20181221105738.png "Title")
+
+报错很清楚呀    {}  对象不是一个函数    直接跟()    就等于执行了    不是函数执行不了      es5可执行的代码只有全局代码   函数  和 eval呀
+
+这个问题的报错分为两个部分：
+
+``` js
+// 1.  Cannot read property 'xxx' of undefined
+// 2.  {(intermediate value)} is not a function
+```

@@ -168,3 +168,138 @@ var c = fun(0).fun(1);
 c.fun(2);
 c.fun(3);
 ```
+
+```js
+ window.Glog = function(msg){
+     console.log(msg)
+ }
+ // this was added before the main closure.
+
+ (function(win){
+   //the former closure that contains the main javascript logic;
+ })(window)
+ ```
+
+ ```js
+this.m = 100;
+var obj = {
+  m: 1000,
+  test: function () {
+    console.log(this.m);
+    return function () {
+      console.log(this.m);
+    }
+  }
+}
+(obj.test())();
+ ```
+
+```js
+var s = {
+  p: function() {
+    return function() {
+      console.log('enen')
+    }
+  }
+}
+(s.p())()
+```
+
+The ECMAScript specification has specific rules for automatic semicolon insertion, however in this case a semicolon isn't automatically inserted because the parenthesised expression that begins on the next line can be interpreted as an argument list for a function call.
+
+This means that without that semicolon, the anonymous window.Glog function was being invoked with a function as the msg parameter, followed by (window) which was subsequently attempting to invoke whatever was returned.
+
+This is how the code was being interpreted:
+
+```js
+window.Glog = function(msg) {
+  console.log(msg);
+}; // <--- Add this semicolon
+
+(function(win) {
+  // ...
+})(window);
+
+window.Glog = function(msg) {
+  console.log(msg);
+}(function(win) {
+  // ...
+})(window);
+```
+
+Everything works fine when I wrote the js logic in a closure as a single js file, as:
+
+``` js
+(function(win){
+   //main logic here
+   win.expose1 = ....
+   win.expose2 = ....
+})(window)
+```
+
+but when I try to insert a logging alternative function before that closure in the same js file,
+
+```js
+ window.Glog = function(msg){
+     console.log(msg)
+ }
+ // this was added before the main closure.
+
+ (function(win){
+   //the former closure that contains the main javascript logic;
+ })(window)
+```
+
+it complains that there is a TypeError:
+
+``` console
+Uncaught TypeError: (intermediate value)(...) is not a function
+```
+
+```js
+window.Glog = function(msg) {
+  console.log(msg);
+}; // <--- Add this semicolon
+
+(function(win) {
+  // ...
+})(window);
+```
+
+The ECMAScript specification has specific rules for automatic semicolon insertion, however in this case a semicolon isn't automatically inserted because the parenthesised expression that begins on the next line can be interpreted as an argument list for a function call.
+
+This means that without that semicolon, the anonymous window.Glog function was being invoked with a function as the msg parameter, followed by (window) which was subsequently attempting to invoke whatever was returned.
+
+This is how the code was being interpreted:
+
+```js
+window.Glog = function(msg) {
+  console.log(msg);
+}(function(win) {
+  // ...
+})(window);
+```
+
+```js
+  **Error Case:**
+var handler = function(parameters) {
+  console.log(parameters);
+}
+
+(function() {     //IIFE
+ // some code
+})();
+```
+Output: TypeError: (intermediate value)(intermediate value) is not a function *How to Fix IT -> because you are missing semi colan(;) to separate expressions;
+
+```js
+    **Fixed**
+var handler = function(parameters) {
+  console.log(parameters);
+}; // <--- Add this semicolon(if you miss that semi colan ...
+   //error will occurs )
+
+(function() {     //IIFE
+ // some code
+})();
+```

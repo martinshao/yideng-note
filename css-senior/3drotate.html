@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>3D旋转</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      /*指定观察者与平面的距离，使有透视效果*/
+      /*若无法正常3d效果，将perspective属性提到更上一个父容器即可(此处已上提，从items-->container)*/
+      perspective: 1000px;
+      /*让container的伪类有过渡效果--51-54行*/
+      /*transition: all 1s;*/
+    }
+
+    .items {
+      width: 200px;
+      height: 200px;
+      border: 1px solid #c18;
+      margin: 200px auto;
+      /*指定子元素定位在三维空间内*/
+      transform-style: preserve-3d;
+      /*让所有item的父级元素（即items）旋转，item就是围绕着旋转了*/
+      animation: autoMove 10s infinite linear;
+
+    }
+
+    .item {
+      width: 200px;
+      height: 200px;
+      background-color: skyblue;
+      opacity: .6;
+      font-size: 200px;
+      line-height: 200px;
+      text-align: center;
+      position: absolute;
+    }
+
+    /*定义自动旋转的动画*/
+    @keyframes autoMove {
+      from {}
+
+      to {
+        transform: rotateY(-360deg);
+      }
+    }
+
+    .items:hover {
+      /*鼠标移入 暂停动画*/
+      animation-play-state: paused;
+    }
+  </style>
+  <script>
+    $(function () {
+      var itemNum = $(".container .items .item").length;//要旋转的div的数量
+      var itemDeg = 360 / itemNum;//计算平均偏移角度，后面的itemDeg*index是不同索引div的偏移角度
+      $(".items>.item").each(function (index, element) {
+        $(element).css({
+          //给每一个item设置好位置
+          //rotateY让每一个item绕着Y轴偏移，itemDeg*index是不同索引div的偏移角度
+          //translateZ是控制item在角度偏移后，往他们的正上方移动的距离，数值越大旋转的范围越大
+          transform: "rotateY(" + itemDeg * index + "deg) translateZ(280px)"
+        });
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="items">
+      <!--简便起见，用背景色和数字代替图片-->
+      <div class="item">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">4</div>
+      <div class="item">5</div>
+      <div class="item">6</div>
+    </div>
+  </div>
+</body>
+
+</html>
