@@ -1,4 +1,6 @@
-# 3D技术在前端应用和发展
+# CSS高级
+
+## 3D技术在前端应用和发展
 
 课程大纲
 * HTML5陀螺仪
@@ -58,3 +60,49 @@ window.addEventListener("compassneedscalibration", function (event) {
 ### 淘宝造物节
 
 ## 集合Touch事件
+
+## CSS高级实用技巧
+
+css3开发常备核心技能
+
+* 早起的双飞翼布局+CSS HACK
+* 基于移动端的PX与REM转换兼容方案
+* 弹性盒模型与Reset的选择
+* 自制的CON-FONT与常用字体排版
+* CSS代码检测与团队项目规范
+* CSS绘制特殊图形 高级技巧
+* BFC IFC GFC FFC
+
+### 双飞翼布局
+
+position
+float
+负边距
+等高
+盒模型
+清除浮动
+
+### 从双飞翼布局到CSS布局
+
+作为全栈的伪前端工程师，一直以来对于CSS这块的知识都有所欠缺。但每次遇到样式问题也十分尴尬，
+痛定思痛之后，决定把这块的知识彻底梳理出来。
+
+学习布局是对于CSS知识整体运用的一种有效的方式。
+
+CSS布局基础知识：定位、尺寸、浮动。
+
+CSS中有个重要的概念就是定位：`position` ，掌握position属性值的用法和特性是十分有必要的。
+总的来说，position属性有六个属性值：static、relative、absolute、fixed、sticky和inherit。
+* static(默认)：元素框正常生成。块级元素生成一个矩形框，作为文档流的一部分；行内元素则会创建一个或多个行框，置于其父元素中。
+* relative：元素框相对于之前正常文档流中的位置发生偏移，并且原先的位置仍然被占据。发生偏移的时候，可能会覆盖其他元素。
+* absolute：元素框不再占有文档流位置，并且相对于包含块进行偏移(所谓的包含块就是最近一级外层元素position不为static的元素)
+* fixed：元素框不再占有文档流位置，并且相对于视窗进行定位
+* sticky：(这是css3新增的属性值)粘性定位，官方的介绍比较简单，或许你不能理解。其实，它就相当于relative和fixed混合。最初会被当作是relative，相对于原来的位置进行偏移；一旦超过一定阈值之后，会被当成fixed定位，相对于视口进行定位。
+
+学习CSS可以借助一下几个网站：W3school
+* http://www.w3school.com.cn/cssref/pr_class_position.asp
+* https://developer.mozilla.org/en-US/docs/Web/CSS/position
+
+偏移量：top、right、bottom、left四个属性。
+
+这里的尺寸指的是盒模型的尺寸。
