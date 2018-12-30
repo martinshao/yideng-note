@@ -100,8 +100,8 @@ CSS中有个重要的概念就是定位：`position` ，掌握position属性值�
 * sticky：(这是css3新增的属性值)粘性定位，官方的介绍比较简单，或许你不能理解。其实，它就相当于relative和fixed混合。最初会被当作是relative，相对于原来的位置进行偏移；一旦超过一定阈值之后，会被当成fixed定位，相对于视口进行定位。
 
 学习CSS可以借助一下几个网站：W3school
-* http://www.w3school.com.cn/cssref/pr_class_position.asp
-* https://developer.mozilla.org/en-US/docs/Web/CSS/position
+* [W3school](http://www.w3school.com.cn/cssref/pr_class_position.asp)
+* [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/position)
 
 偏移量：top、right、bottom、left四个属性。
 

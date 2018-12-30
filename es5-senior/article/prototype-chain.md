@@ -251,7 +251,7 @@ alert(Number.constructor) // function Function(){ [native code] }
 ![alt text](./img/20181218212309.png "Title")
 ![alt text](./img/20181218212401.png "Title")
 
-stated here https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function the constructor property of an instance of a function object "specifies the function that creates an object's prototype". This is confusing, so Object.constructor is "the function that creates an object's prototype"? What object is "an object" exactly?
+stated here [MDN](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function) the constructor property of an instance of a function object "specifies the function that creates an object's prototype". This is confusing, so Object.constructor is "the function that creates an object's prototype"? What object is "an object" exactly?
 
 I'm trying to understand why is Object.constructor's constructor property itself?
 
