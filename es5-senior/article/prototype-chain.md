@@ -188,7 +188,7 @@ function Person(name, age) {
 ![alt text](./img/stage5.png "Title")  
 上图就已经很明显的给出了原型链的雏形。
 
-最后的最后我们祭出经典原型链图。
+最后的最后我们祭出经典原型链图。  
 ![alt text](./img/stage8.jpg "Title")
 
 function与object是数据类型,Function与Object是两个函数对象的标识符(等价于两个函数对象),Function与Object的数据类型都是function.
