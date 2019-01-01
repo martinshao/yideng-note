@@ -11,17 +11,42 @@
 
 ## 什么是原型？
 
-我们创建的每个函数都有一个 `prototype` (原型)属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。
+我们创建的每个函数都有一个 `prototype` (原型)属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。换言之， `prototype` 就是通过调用构造函数而创建的那个对象实例的原型对象。
 （每一个JavaScript对象(null除外)在创建的时候就会与之关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型"继承"属性。
 原型对象、实例原型是一回事，都是不同人的叫法不同）
 
+```js
+// 通常构造函数默认使用大写开头
+function Person(name, age, job) {
+  this.name = name;
+  this.age = age;
+  this.sayName = function () {
+    console.info(this.name);
+  }
+}
+
+console.info(Person);
+```
+
+备注：chrome浏览器的控制台不好打印函数属性，Firefox是可以的，下图Firefox打印。  
+![alt text](./img/20190101163046.png "constructor function")
+
+总结：  
+1. JavaScript中，凡是函数都会有 `prototype` 属性，该属性是一个指针，指针指向原型对象。
+2. 原型对象是一个实实在在的对象，原型属性则是一个指针。
+
+```js
+console.info(typeof Person.prototype) // => object
+```
+
 ## 理解原型对象、prototype属性、constructor构造函数
 
-JavaScript中，无论什么时候，只要创建了一个新函数，就会根据一组特定的规则为该函数创建一个prototype属性，这个属性指向函数的原型对象。
-在默认情况下，所有原型对象都会自动获得一个constructor（构造函数）属性，这个属性是一个指向prototype属性所在函数的指针。
+JavaScript中，**无论什么时候**，只要创建了一个新函数，就会根据一组特定的规则为该函数创建一个 `prototype` 属性，这个属性指向函数的原型对象。
+在默认情况下，所有原型对象都会自动获得一个 `constructor` （构造函数）属性，这个属性是一个指向 `prototype` 属性所在函数的指针。
 构造函数、原型对象、实例之间关系图
 
 ![alt text](./img/prototype-img.png "Title")
+
 函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的原型，也就是这个例子中的 person1 和 person2 的原型。
 
 ``` js
@@ -36,20 +61,82 @@ function Person(name, age) {
 
   var person = new Person("shaogucheng", 18);
   console.info(Person.prototype);
-  console.info(person);
-  console.info(person.prototype);
 ```
 
 控制台可以看到清晰的结构  
 ![alt text](./img/prototype-console.png "Title")
 
-创建了自定义的构造函数之后，其原型对象默认只会取得constructor属性；至于其他方法，则都是从Object继承而来的。当调用构造函数创建一个新实例后，该实例的内部将包含一个指针（内部属性），指向构造函数的原型对象。ECMA-262第5版中管这个指针叫[[Prototype]]。虽然在脚本中没有标准的方式访问[[Prototype]]，但Firefox、Safari和Chrome在每个对象上都支持一个属性_proto_；而在其他实现中，这个属性对脚本则是完全不可见的。不过，要明确的真正重要的一点就是，这个连接存在于实例与构造函数的原型对象之间，而不是存在于实例与构造函数之间。
+创建了自定义的构造函数之后，其原型对象默认只会取得constructor属性；至于其他方法，则都是从Object继承而来的。当调用构造函数创建一个新实例后，该实例的内部将包含一个指针（内部属性），指向构造函数的原型对象。**ECMA-262**第5版中管这个指针叫 `[[Prototype]]` 。虽然在脚本中没有标准的方式访问[[Prototype]]，但Firefox、Safari和Chrome在每个对象上都支持一个属性 `__proto__` ；而在其他实现中，这个属性对脚本则是完全不可见的。不过，要明确的真正重要的一点就是，**这个连接存在于实例与构造函数的原型对象之间，而不是存在于实例与构造函数之间**。
+
+### 确定对象之间关系(确立构造函数与实例对象间关系)
+
+方法一：简单粗暴图示法
+直接撸出这样一段代码，执行过后：
+
+```js
+var Lily = new Person('Lily', 18);
+console.info(Lily);
+```
+
+Firefox浏览器中对于 `[[Prototype]]` 指针的实现是 `<prototype>` ，这里通过 `[[Prototype]]` 指针就可以找到构造函数原型对象，找到构造函数，那么实例化对象的构造函数就一目了然。  
+![alt text](./img/20190101172107.png "实例与构造函数关系")
+
+chrome浏览器对于 `[[Prototype]]` 指针的实现是 `__proto__` ，这里通过 `[[Prototype]]` 指针就可以找到构造函数原型对象，找到构造函数，那么实例化对象的构造函数就一目了然。  
+![alt text](./img/20190101172135.png "实例与构造函数关系")
+
+方法二：科学严谨代码法
+一种简单的判断方式是：我们知道实例的 `[[Prototype]]` 指针是指向构造函数原型对象的，所以有这样的代码；
+
+```js
+var person = new Person("shaogucheng", 18);
+console.info(person.__proto__ === Person.prototype); // => true
+// 或者更加过分一点
+console.info(person.__proto__.constructor === Person); // => true
+```
+
+另外一种方法是利用Object对象函数的API，`isPrototypeOf()` 还有 `getPrototypeOf()` 。
+
+很遗憾chrome访问不到Object API  
+![chrome Object API](./img/20190101173728.png "chrome Object API")  
+FireFox提供了API  
+![Firefox Object API](./img/20190101173808.png "Firefox Object API")
+
+然后撸出这样的代码：
+
+```js
+console.info(Person.prototype.isPrototypeOf(person)); // => true
+console.info(Object.getPrototypeOf(person) === Person.prototype); // => true
+```
+
+------------------
+
+## 原型的用途
+
+之前一直介绍原型，各种概念纷繁复杂搞得人头昏脑涨，我一直认为学以致用是一种更加有趣的学习方式，那么接下里就要重点介绍原型的用处了。
+> 使用原型最大的好处就是：可以让所有对象实例共享它所包含的属性和方法。换句话说，不必在构造函数中定义对象实例的信息，而是可以将这些信息直接添加到原型对象中。
+
+```js
+function Person() { }
+
+Person.prototype.language = "Chinese"
+Person.prototype.gender = "unknown"
+Person.prototype.name = "Legend of the Dragon"
+Person.prototype.sayName = function () {
+  console.info(this.name)
+}
+
+var person1 = new Person();
+var person2 = new Person();
+person1.sayName(); // => Legend of the Dragon
+person2.sayName(); // => Legend of the Dragon
+console.info(person1.sayName === person2.sayName); // => true
+```
 
 ------------------
 
 ## 分步理解原型链构成
 
-这里的Person就是构造函数本尊，它本身是对象，也是函数。关于Person的深刻理解，请参考文章。`
+这里的Person就是构造函数本尊，它本身是对象，也是函数。关于Person的深刻理解，请参考文章。
 当Person这个函数新建之后，就会有一个属性（其实是一个指针），指向原型对象（实例原型），原型对象是客观存在的对象。
 
 ``` js
@@ -173,6 +260,12 @@ Fn();//这是函数运行时.
 其次第二个概念：**JavaScript中所有的对象都继承自Object原型，而Function又充当了对象(Object)的构造器。**  
 然后第三个概念：**一切都是对象**  
 这张图可能很好的看到Function和Object的内在联系。  
+
+理解基础（在阅读下图之前，希望牢记下面两点）：  
+1. 所有函数都会有prototype属性，该属性是个指针，指向prototype实例原型。
+2. 所有对象都会有__proto__属性，该属性是个指针，指向父类prototype原型对象。
+3. prototype是个真真实实，如假包换的对象。
+
 ![alt text](./img/object-function.bmp "Title")
 
 * `Object` 是所有对象的爸爸，所有对象都可以通过 `__proto__` 找到它
@@ -248,8 +341,10 @@ alert(Number.constructor) // function Function(){ [native code] }
 
 总结一下，像内置的函数或说对象把如:Object,String,Array等等和自定义的function关键字定义的函数,都是Function的子类。new Function()相当于function关键字定义。这里可以引出，Function.prototype原型链上的属性所有函数共享,Object.prototype原型链上的属性所有对象共享。
 
-![alt text](./img/20181218212309.png "Title")
+![alt text](./img/20181218212309.png "Title")  
 ![alt text](./img/20181218212401.png "Title")
+
+QAQ：真心想要吐槽一句，如此复杂的数据类型设计，完完全全了解其中复杂的关系，也是颇为费力的一件事情，也正是JavaScript令人吐槽的地方，设计糟糕的一种体现，可同样也是巧妙的让人绝望。
 
 stated here [MDN](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function) the constructor property of an instance of a function object "specifies the function that creates an object's prototype". This is confusing, so Object.constructor is "the function that creates an object's prototype"? What object is "an object" exactly?
 

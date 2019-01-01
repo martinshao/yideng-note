@@ -91,4 +91,34 @@ var s = {
   (s.p())()
 
 
-  
+var person = {
+  name: 'shaogucheng',
+  age: 18,
+  job: 'Software Engineer',
+  sayName: function () {
+    console.info(this.name)
+  }
+}
+
+function Person(name, age, job) {
+  this.name = name;
+  this.age = age;
+  this.sayName = function () {
+    console.info(this.name);
+  }
+}
+
+function Person() { }
+
+Person.prototype.language = "Chinese"
+Person.prototype.gender = "unknown"
+Person.prototype.name = "Legend of the Dragon"
+Person.prototype.sayName = function () {
+  console.info(this.name)
+}
+
+var person1 = new Person();
+var person2 = new Person();
+person1.sayName(); // => Legend of the Dragon
+person2.sayName(); // => Legend of the Dragon
+console.info(person1.sayName === person2.sayName); // => true

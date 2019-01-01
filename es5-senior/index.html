@@ -10,54 +10,20 @@
 
 <body>
   <script type="text/javascript">
-  // list转为tree的算法。
-  // 这算是一个期限嘛？
-    var nodes = [
-      { "id": 1, "pId": 0, "name": "父节点1 - 展开", "open": true },
-      { "id": 11, "pId": 1, "name": "父节点11 - 折叠" },
-      { "id": 12, "pId": 1, "name": "父节点12 - 折叠" },
-      { "id": 13, "pId": 1, "name": "父节点13 - 没有子节点" },
-      { "id": 2, "pId": 0, "name": "父节点2 - 折叠" },
-      { "id": 21, "pId": 2, "name": "父节点21 - 展开", "open": true },
-      { "id": 22, "pId": 2, "name": "父节点22 - 折叠" },
-      { "id": 23, "pId": 2, "name": "父节点23 - 折叠" },
-      { "id": 3, "pId": 0, "name": "父节点3 - 没有子节点" }
-    ];
+    function Person() { }
 
-    function listToTree(data, options) {
-      options = options || {};
-      var ID_KEY = options.idKey || 'id';
-      var PARENT_KEY = options.parentKey || 'pId';
-      var CHILDREN_KEY = options.childrenKey || 'children';
-
-      var tree = [],
-        childrenOf = {};
-      var item, id, parentId;
-
-      for (var i = 0, length = data.length; i < length; i++) {
-        item = data[i];
-        id = item[ID_KEY];
-        parentId = item[PARENT_KEY] || 0;
-        childrenOf[id] = childrenOf[id] || []; 
-        item[CHILDREN_KEY] = childrenOf[id]; 
-        if (parentId != 0) {
-          childrenOf[parentId] = childrenOf[parentId] || []; 
-          console.info(parentId);
-          childrenOf[parentId].push(item);
-        } else {
-          tree.push(item);
-        }
-      };
-
-      return tree;
+    Person.prototype.language = "Chinese"
+    Person.prototype.gender = "unknown"
+    Person.prototype.name = "Legend of the Dragon"
+    Person.prototype.sayName = function () {
+      console.info(this.name)
     }
 
-    var tree = listToTree(nodes, {
-      idKey: 'id',
-      parentKey: 'pId',
-      childrenKey: 'children'
-    });
-    console.info(tree);
+    var person1 = new Person();
+    var person2 = new Person();
+    person1.sayName(); // => Legend of the Dragon
+    person2.sayName(); // => Legend of the Dragon
+    console.info(person1.sayName === person2.sayName); // => true
   </script>
 </body>
 
