@@ -20,6 +20,7 @@
 
 JavaScript执行栈示意图  
 ![alt text](./img/callstack.png "JavaScript call stack ")
+![alt text](./img/callstack1.bmp "JavaScript call stack ")
 
 ### **功能**
 

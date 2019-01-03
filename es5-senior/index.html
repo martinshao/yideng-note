@@ -9,24 +9,16 @@
 </head>
 
 <body>
+  <ul class="oul">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+  </ul>
   <script type="text/javascript">
-    function Person() { }
 
-    Person.prototype.language = "Chinese"
-    Person.prototype.gender = "unknown"
-    Person.prototype.name = "Legend of the Dragon"
-    Person.prototype.sayName = function () {
-      console.info(this.name)
-    }
-
-    var person1 = new Person();
-    var person2 = new Person();
-    person1.sayName(); // => Legend of the Dragon
-    person2.sayName(); // => Legend of the Dragon
-    console.info(person1.sayName === person2.sayName); // => true
-
-    console.info(Object);
-    console.info(Function);
   </script>
 </body>
 

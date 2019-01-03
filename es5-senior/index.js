@@ -122,3 +122,30 @@ var person2 = new Person();
 person1.sayName(); // => Legend of the Dragon
 person2.sayName(); // => Legend of the Dragon
 console.info(person1.sayName === person2.sayName); // => true
+
+
+function Car(color) {
+  this.color = color;
+}
+Car.prototype.sail = function () {
+  console.info(this.color);
+}
+
+function BWM(color) {
+  Car.call(this, color);
+}
+
+var prototype = Object.create(Car.prototype);
+prototype.constructor = BWM;
+BWM.prototype = prototype;
+
+function a() {
+  console.info(10)
+}
+var a;
+console.info(a);
+a();
+a = 3;
+console.info(a);
+a = 6;
+a();
