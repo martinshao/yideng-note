@@ -36,4 +36,5 @@ JavaScript执行栈示意图
 * `ECS`：执行环境栈，Execution Context Stack
 * `VO`：变量对象，Variable Object
 * `AO`：活动对象，Active Object
+* `GO`：全局对象，Global Object
 * `scope chain`：作用域链
