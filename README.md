@@ -13,14 +13,14 @@
 
 ** 各部分课程详细笔记
 * [你不知道的html][1]
-* [CSS基础与高级][2] *未完成*
+* [CSS基础与高级][2]
 * [ES5基础与核心知识][3]
 * [JavaScript与QA测试工程师][6]
 * [ES6编程风格与精粹][4] *未完成*
 * [PHP与MySQL入门到实践][5] *未完成*
 
 [1]: https://github.com/Martin-Shao/yideng-note/blob/master/html-senior/exercises.md
-[2]: https://github.com/Martin-Shao/yideng-note
+[2]: https://github.com/Martin-Shao/yideng-note/blob/master/css-senior/overview.md
 [3]: https://github.com/Martin-Shao/yideng-note/blob/master/es5-senior/exercises.md
 [4]: https://github.com/Martin-Shao/yideng-note/blob/master/es6-senior/exercises.md
 [5]: https://github.com/Martin-Shao/yideng-note
