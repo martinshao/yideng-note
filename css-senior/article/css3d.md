@@ -15,10 +15,10 @@ Alpha：以Z轴为轴的旋转为alpha。其范围为0到360度，当前指向�
 Beta：以X轴为轴的旋转为beta。其范围为-180到180度，当前指向表示为x。
 Gamma：以Y轴为轴的旋转为gamma。其范围为-90到90度，当前指向表示为y。
 
-![alt text](./article/img/timg-xyz.jpg "Title")
-![alt text](./article/img/timg-alpha.jpg "Title")
-![alt text](./article/img/timg-beta.jpg "Title")
-![alt text](./article/img/timg-gamma.jpg "Title")
+![alt text](./img/timg-xyz.jpg "Title")
+![alt text](./img/timg-alpha.jpg "Title")
+![alt text](./img/timg-beta.jpg "Title")
+![alt text](./img/timg-gamma.jpg "Title")
 
 ### 获取罗盘校准
 

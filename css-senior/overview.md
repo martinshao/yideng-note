@@ -12,11 +12,11 @@
 * [CSS选择器，基础和足够强大的存在！][1]
 * [CSS不得不深入掌握的盒模型][2]
 * [CSS3构建3D吸睛世界！][3]
-* [CSS已经很酷炫的动画！][4]
+* [CSS已经很酷炫的动效！][4]
 * [CSS数学基础，从入门到放弃][5]
 
 [1]: https://github.com/Martin-Shao/yideng-note/blob/master/css-senior/article/selector.md
 [2]: https://github.com/Martin-Shao/yideng-note/blob/master/css-senior/article/box-model.md
-[3]:
-[4]:
-[5]:
+[3]: https://github.com/Martin-Shao/yideng-note/blob/master/css-senior/article/css3d.md
+[4]: https://github.com/Martin-Shao/yideng-note/blob/master/css-senior/article/css-animation.md
+[5]: https://github.com/Martin-Shao/yideng-note/blob/master/css-senior/article/css-mathematics.md
