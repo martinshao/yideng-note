@@ -368,7 +368,7 @@ function Person(name, age) {
 构造函数的原型对象的原型又是谁呢？  
 ![alt text](./img/stage4.png "Title")  
 
-喜大普奔的是chrome浏览器支持显示 `__proto` 属性，所以在控制台输入：`console.info(Person.prototype.__proto__);` 我们就能愉快的观察到Person构造函数的原型对象的原型是谁。
+喜大普奔的是chrome浏览器支持显示 `__proto__` 属性，所以在控制台输入：`console.info(Person.prototype.__proto__);` 我们就能愉快的观察到Person构造函数的原型对象的原型是谁。
 ![alt text](./img/20181217234302.png "Title")  
 这样，真相就已经很明显了。
 
