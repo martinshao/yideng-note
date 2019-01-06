@@ -309,7 +309,7 @@ QAQ：真心想要吐槽一句，如此复杂的数据类型设计，完完全�
 3. prototype是个真真实实，如假包换的对象。
 
 这张图可能很好的看到Function和Object的内在联系。  
-![alt text](./img/object-function2.jpg "Title")
+![alt text](./img/object-function1.jpg "Title")
 
 * `Object` 是所有对象的爸爸，所有对象都可以通过 `__proto__` 找到它
 * `Function` 是所有函数的爸爸，所有函数都可以通过 `__proto__` 找到它
