@@ -18,7 +18,15 @@
     <li>6</li>
   </ul>
   <script type="text/javascript">
-
+  var s = {kk: 30};
+  with(s) {
+    bb = 30;
+  }
+  console.info(s.bb);
+  console.info(bb);
+  // 1.eval()
+  // 2.Function()
+  // 3.with
   </script>
 </body>
 
