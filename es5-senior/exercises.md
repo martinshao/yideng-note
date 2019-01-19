@@ -64,16 +64,16 @@ var test = {
   init: ()=> {
     console.info(this.a);
     function go() {
-      this.a = 60;
+      // this.a = 60;
       console.info(this.a);
     }
     go.prototype.a = 50;
     return go;
   }
 };
-var p = test.init();
-p();
-new (this.init())();
+// var p = test.init();
+// p();
+new (test.init())();
 ```
 
 这道题目相当复杂，所以在解析这道题目的时候，我们可以尝试着把复杂的问题解析成小问题，逐个击破。
@@ -357,4 +357,102 @@ var s = {
 ``` js
 // 1.  Cannot read property 'xxx' of undefined
 // 2.  {(intermediate value)} is not a function
+```
+
+```js
+    function Car(color, price) {
+      this.color = color;
+      this.price = price;
+    }
+    Car.prototype.sail = function() {
+      console.info(this.color + ' car is sailing ' + this.price);
+    }
+
+    function inherite(subType, SuperType) {
+      var prototype = Object.create(SuperType.prototype);
+      prototype.constructor = subType;
+      subType.prototype = prototype;
+    }
+
+    function Cruze(color, price, seller) {
+      Car.call(this, color, price);
+      this.seller = seller;
+    }
+
+    inherite(Cruze, Car);
+
+    var cruze = new Cruze('red', 140000);
+    cruze.sail();
+```
+
+```js
+    var s = [];
+    var arr = s;
+    var pusher;
+    var tmp;
+    for (var i = 0; i < 3; i++) {
+      pusher = {
+        value: 'item' + i
+      };
+      if (i !== 2) {
+        tmp = []
+        pusher.children = tmp
+      }
+      arr.push(pusher);
+      arr = tmp;
+    }
+    console.log(s[0]);
+```
+
+```js
+    var Container = function (x) {
+      this._value = x;
+    }
+    Container.of = x => new Container(x);
+    Container.prototype.map = function (f) {
+      return Container.of(f(this._value))
+    }
+    Container.of(3)
+      .map(x => x + 1)
+      .map(x => 'Result is' + x);
+```
+
+```js
+    const timeout = ms =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve();
+        }, ms);
+      });
+    const ajax1 = () => //#endregion
+      timeout(2000).then(() => {
+        console.log('1');
+        return 1;
+      });
+    const ajax2 = () => //#endregion
+      timeout(1000).then(() => {
+        console.log('2');
+        return 2;
+      });
+    const ajax3 = () => //#endregion
+      timeout(2000).then(() => {
+        console.log('3');
+        return 3;
+      });
+    const mergePromise = (ajaxArray) => {
+      var data = [];
+      var sequence = Promise.resolve();
+      ajaxArray.forEach(function (item) {
+        sequence = sequence.then(item).then(function (res) {
+          data.push(res);
+          return data;
+        });
+      })
+
+      return sequence;
+    }
+    mergePromise([ajax1, ajax2, ajax3]).then(data => {
+      console.info('done');
+      console.log(data);
+    })
 ```
