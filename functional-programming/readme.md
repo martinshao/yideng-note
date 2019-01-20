@@ -40,3 +40,4 @@
 [10]: https://github.com/Martin-Shao/yideng-note
 [11]: https://github.com/Martin-Shao/yideng-note
 [12]: https://github.com/Martin-Shao/yideng-note
+[13]: https://github.com/Martin-Shao/yideng-note/blob/master/functional-programming/article/2019-1-20.md
