@@ -26,6 +26,7 @@
 * [FP编程进阶之——递归和尾调用优化][10]  
 * [FP编程进阶之——容器、函子][11]  
 * [FP编程进阶之——Monad][12]  
+* [FP编程进阶之——Functor、Applicative 和 Monad][13]  
 
 [1]: https://github.com/Martin-Shao/yideng-note
 [2]: https://github.com/Martin-Shao/yideng-note/blob/master/functional-programming/article/2019-1-18.md
