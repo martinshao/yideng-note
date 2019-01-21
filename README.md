@@ -20,6 +20,7 @@
 * [JavaScript与QA测试工程师][6]
 * [ES6编程风格与精粹][4] *未完成*
 * [PHP与MySQL入门到实践][5] *未完成*
+* [JavaScript函数式编程超指南][7] *未完成*
 
 [1]: https://github.com/Martin-Shao/yideng-note/blob/master/html-senior/exercises.md
 [2]: https://github.com/Martin-Shao/yideng-note/blob/master/css-senior/overview.md
@@ -27,3 +28,4 @@
 [4]: https://github.com/Martin-Shao/yideng-note/blob/master/es6-senior/exercises.md
 [5]: https://github.com/Martin-Shao/yideng-note
 [6]: https://github.com/Martin-Shao/yideng-note/blob/master/fe-qa/FrontEnd-QA.md
+[7]: https://github.com/Martin-Shao/yideng-note/tree/master/functional-programming
