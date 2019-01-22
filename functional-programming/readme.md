@@ -13,7 +13,7 @@
 
 * [函数式编程——原来你也是编程范式][1]
 * [函数式编程基础——范畴论][2]
-* [FP编程基础之——纯函数][3] *未完成*  
+* [FP编程基础之——纯函数][3] 
 * [FP编程基础之——函数柯里化][4] *未完成*  
 * [FP编程基础之——偏函数][5] *未完成*  
 * [FP编程基础之——函数组合][6] *未完成*  
@@ -28,6 +28,8 @@
 * [FP编程进阶之——Monad][12] *未完成*  
 * [FP编程进阶之——Functor、Applicative 和 Monad][13]  
 
+[1]: https://github.com/Martin-Shao/yideng-note/blob/master/functional-programming/article/2019-1-22.md
 [2]: https://github.com/Martin-Shao/yideng-note/blob/master/functional-programming/article/2019-1-18.md
+[3]: https://github.com/Martin-Shao/yideng-note/blob/master/functional-programming/article/2019-1-21.md
 [7]: https://github.com/Martin-Shao/yideng-note/blob/master/functional-programming/article/2019-1-19.md
 [13]: https://github.com/Martin-Shao/yideng-note/blob/master/functional-programming/article/2019-1-20.md
