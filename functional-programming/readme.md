@@ -1,4 +1,4 @@
-# JavaScript函数式编程
+# JavaScript函数式编程超指南
 
  ![alt](./article/img/JavaScript--FP.svg)
 
