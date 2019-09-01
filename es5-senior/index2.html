@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+  </head>
+  <body>
+    <p>产品一</p>
+    <p>产品二</p>
+    <p>产品三</p>
+    <p>产品四</p>
+    <p>产品五</p>
+  </body>
+  <script type="text/javascript">
+    var arr = document.getElementsByTagName("p");
+    // function test() {
+    //   for (var i = 0; i < arr.length; i++) {
+    //     arr[i].onclick = (function() {
+    //       console.info(i);
+    //     })(i);
+    //   }
+    // }
+    // test();
+    for (var i = 0; i < arr.length; i++) {
+      console.info('for', i);
+      (function(i) {
+        console.info('iief', i)
+        arr[i].onclick = function() {
+          console.info(i);
+        };
+      })(i);
+    }
+    // for (var i = 0; i < arr.length; i++) {
+    //   arr[i].onclick = (function(arg) {
+    //     return function() {
+    //       console.info(arg);
+    //     };
+    //   })(i);
+    // }
+    // var firstFunction = function() {
+    //   console.log("I'm first!");
+    // };
+
+    // var secondFunction = function() {
+    //   setTimeout(firstFunction, 5000);
+    //   console.log("I'm second!");
+    // };
+
+    // secondFunction();
+    console.info("shaogucheng");
+  </script>
+</html>

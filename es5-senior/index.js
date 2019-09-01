@@ -36,86 +36,81 @@
 this.m = 100;
 var obj = {
   m: 1000,
-  test: function () {
+  test: function() {
     console.log(this.m);
-    return function () {
+    return function() {
       console.log(this.m);
-    }
+    };
   }
-}
-  (obj.test())();
+}(obj.test())();
 
-window.Glog = function (msg) {
-  console.log(msg)
-}
+window.Glog = (function(msg) {
+  console.log(msg);
+})(
   // this was added before the main closure.
 
-  (function (win) {
+  function(win) {
     //the former closure that contains the main javascript logic;
-  })(window)
-
+  }
+)(window);
 
 var s = {
-  p: function () {
-    return function () {
-      console.log('enna')
-    }
+  p: function() {
+    return function() {
+      console.log("enna");
+    };
   }
-}
-  (s.p())()
+}(s.p())();
 
-var test = function (param) {
-  console.log('test', param);
-  return function (param) {
-    console.log('inner', param);
-  }
-}
-  (test())();
+var test = (function(param) {
+  console.log("test", param);
+  return function(param) {
+    console.log("inner", param);
+  };
+})(test())();
 
 var s = {
-  p: function () {
-    return function () {
-      console.log('enna')
-    }
+  p: function() {
+    return function() {
+      console.log("enna");
+    };
   }
 };
-(s.p())()
+s.p()();
 
 var s = {
-  p: function () {
-    return function () {
-      console.log('enna')
-    }
+  p: function() {
+    return function() {
+      console.log("enna");
+    };
   }
-}
-  (s.p())()
-
+}(s.p())();
 
 var person = {
-  name: 'shaogucheng',
+  name: "shaogucheng",
   age: 18,
-  job: 'Software Engineer',
-  sayName: function () {
-    console.info(this.name)
+  job: "Software Engineer",
+  sayName: function() {
+    console.info(this.name);
   }
-}
+};
 
 function Person(name, age, job) {
   this.name = name;
   this.age = age;
-  this.sayName = function () {
+  this.sayName = function() {
     console.info(this.name);
-  }
+  };
 }
 
-function Person() { }
+function Person() {}
 
-Person.prototype.language = "Chinese"
-Person.prototype.gender = "unknown"
-Person.prototype.name = "Legend of the Dragon"
-Person.prototype.sayName = function () {
-  console.info(this.name)
-}
+Person.prototype.language = "Chinese";
+Person.prototype.gender = "unknown";
+Person.prototype.name = "Legend of the Dragon";
+Person.prototype.sayName = function() {
+  console.info(this.name);
+};
 
 var person1 = new Person();
 var person2 = new Person();
@@ -123,13 +118,12 @@ person1.sayName(); // => Legend of the Dragon
 person2.sayName(); // => Legend of the Dragon
 console.info(person1.sayName === person2.sayName); // => true
 
-
 function Car(color) {
   this.color = color;
 }
-Car.prototype.sail = function () {
+Car.prototype.sail = function() {
   console.info(this.color);
-}
+};
 
 function BWM(color) {
   Car.call(this, color);
@@ -140,7 +134,7 @@ prototype.constructor = BWM;
 BWM.prototype = prototype;
 
 function a() {
-  console.info(10)
+  console.info(10);
 }
 var a;
 console.info(a);
@@ -149,3 +143,65 @@ a = 3;
 console.info(a);
 a = 6;
 a();
+
+var a = { n: 1 };
+var b = a;
+a.x = { n: 2 };
+console.info(a);
+console.info(b);
+
+a.x = a = { n: 2 };
+console.info(a);
+console.info(b);
+console.info(b.x === a);
+
+var a = { n: 1 };
+a = a.x = { n: 2 };
+console.info(a);
+
+a = { n: 2 };
+a.x = a;
+
+a.x = a = { n: 2 };
+
+Obeject.defineO;
+
+a.x = a = { n: 2 };
+
+let a = [{ a: 1 }, { b: 2 }];
+let b = a;
+b[0].a= 2;
+
+console.info(a);
+console.info(b);
+
+
+var a = [{a:1}];
+var b = [{a:1}];
+b[0].a = 2;
+console.info(a);
+console.info(b);
+
+// ExecutionContext = {  
+//   ThisBinding = <this value>,  
+//   LexicalEnvironment = { ... },  
+//   VariableEnvironment = { ... },  
+// }
+
+{/* GlobalExectionContext = {  
+  LexicalEnvironment: {  
+    EnvironmentRecord: {  
+      Type: "Object",  
+      // 标识符绑定在这里 
+    outer: <null>  
+  }  
+} */}
+
+{/* FunctionExectionContext = {  
+  LexicalEnvironment: {  
+    EnvironmentRecord: {  
+      Type: "Declarative",  
+      // 标识符绑定在这里 
+    outer: <Global or outer function environment reference>  
+  }  
+} */}

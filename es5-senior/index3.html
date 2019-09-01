@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+  </head>
+  <body>
+    <p>产品一</p>
+    <p>产品二</p>
+    <p>产品三</p>
+    <p>产品四</p>
+    <p>产品五</p>
+  </body>
+  <script type="text/javascript">
+    // for (var i = 0; i < 5; i++) {
+    //   setTimeout(() => {
+    //     console.log(i);
+    //   }, i * 1000);
+    // };
+    for (var i = 0; i < 5; i++) {
+      function foo(i) {
+        //父级函数
+        setTimeout(() => {
+          console.log(i);
+        }, i * 1000);
+      }
+      foo(i);
+    }
+    console.info("同步执行栈结束...");
+  </script>
+</html>
+tongbu
