@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var nodes = [
+        { id: 1, pId: 0, name: '父节点1 - 展开', open: true },
+        { id: 11, pId: 1, name: '父节点11 - 展开', open: true },
+        { id: 111, pId: 11, name: '父节点111 - 折叠' },
+        { id: 112, pId: 11, name: '父节点112 - 折叠' },
+        { id: 12, pId: 1, name: '父节点12 - 折叠' },
+        { id: 13, pId: 1, name: '父节点13 - 没有子节点' },
+        { id: 2, pId: 0, name: '父节点2 - 折叠' },
+        { id: 21, pId: 2, name: '父节点21 - 展开', open: true },
+        { id: 22, pId: 2, name: '父节点22 - 折叠' },
+        { id: 23, pId: 2, name: '父节点23 - 折叠' },
+        { id: 3, pId: 0, name: '父节点3 - 没有子节点' }
+      ];
+
+      function listToTree(data, options) {
+        options = options || {};
+        var ID_KEY = options.idKey || 'id';
+        var PARENT_KEY = options.parentKey || 'pId';
+        var CHILDREN_KEY = options.childrenKey || 'children';
+
+        var tree = [],
+          childrenOf = {};
+        var item, id, parentId;
+
+        for (var i = 0, length = data.length; i < length; i++) {
+          item = data[i];
+          id = item[ID_KEY];
+          parentId = item[PARENT_KEY] || 0;
+          childrenOf[id] = childrenOf[id] || [];
+          item[CHILDREN_KEY] = childrenOf[id];
+          if (parentId != 0) {
+            childrenOf[parentId] = childrenOf[parentId] || [];
+            console.info(parentId);
+            childrenOf[parentId].push(item);
+          } else {
+            tree.push(item);
+          }
+        }
+
+        return tree;
+      }
+
+      const tree = listToTree(nodes);
+    </script>
+  </body>
+</html>

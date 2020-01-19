@@ -8,6 +8,7 @@
 业务上经常要用到数组转树形结构的函数，比如从后台服务器拿到list数据
 
 ```js
+
 var nodes = [
   { "id": 1, "pId": 0, "name": "父节点1 - 展开", "open": true },
   { "id": 11, "pId": 1, "name": "父节点11 - 折叠" },
@@ -19,6 +20,7 @@ var nodes = [
   { "id": 23, "pId": 2, "name": "父节点23 - 折叠" },
   { "id": 3, "pId": 0, "name": "父节点3 - 没有子节点" }
 ];
+
 ```
 
 但是我们想要的是树形文档结构的数组树，如下：
@@ -96,6 +98,7 @@ function convert(list, parentKey, currentKey, rootValue) {
 完成代码如下：
 
 ```js
+
 function listToTree(data, options) {
   options = options || {};
   var ID_KEY = options.idKey || 'id';
